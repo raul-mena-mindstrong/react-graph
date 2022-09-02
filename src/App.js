@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { ApolloProvider } from '@apollo/react-hooks';
+import client from './graph/client';
+import List from "./components/List";
+import Header from './components/Header';
 
-function App() {
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Header value={searchTerm} onChange={setSearchTerm} />
+      <List searchTerm={searchTerm}/>
+    </ApolloProvider>
   );
-}
+};
 
 export default App;
