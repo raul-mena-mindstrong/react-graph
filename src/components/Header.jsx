@@ -77,7 +77,8 @@ const Header = ({value, onChange, classes}) => {
             </div>
             <InputBase
               placeholder="Search…"
-              value={value} 
+              value={value}
+              data-testid={'search-input'}
               onChange={e => onChange(e.target.value)}
               classes={{
                 root: classes.inputRoot,
