@@ -1,5 +1,4 @@
 import React from 'react';
-import IssueList from './IssueList';
 import {
   Chip,
   makeStyles
@@ -14,6 +13,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import RelateItems from './RelateItems';
 
 const useStyles = makeStyles({
   root: {
@@ -44,7 +44,8 @@ const Item = ({repo}) => {
   const {
     node: {
       name,
-      descriptionHTML,
+      url,
+      createdAt,
       owner: {
         login
       },
@@ -78,7 +79,8 @@ const Item = ({repo}) => {
         subheader={login}
       />
       <CardContent>
-        {descriptionHTML}
+        {url}<br /><br />
+        {new Date(createdAt).toDateString()}
       </CardContent>
       <CardActions>
         <IconButton
@@ -94,7 +96,7 @@ const Item = ({repo}) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <IssueList repoName={name} repoOwner={login}/>
+          <RelateItems repoName={name} />
         </CardContent>
       </Collapse>
     </Card>

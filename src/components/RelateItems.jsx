@@ -5,10 +5,12 @@ import {
   Typography,
   makeStyles,
   ListItem,
-  ListItemText
+  ListItemText,
+  Chip
 } from '@material-ui/core';
 import React from 'react';
-import { GET_ISSUES } from '../graph/queries';
+import StarIcon from '@material-ui/icons/Star';
+import { SEARCH_QUERY } from '../graph/queries';
 
 const useStyles = makeStyles({
   root: {
@@ -20,29 +22,21 @@ const useStyles = makeStyles({
   }
 });
 
-
-
-/**\
- * TODO - delete this file
- * This file is not longer used, due the requirements no included issues, but i let the file to show how call issues endpoint
- */
-
-
-
-const IssueList = ({repoName, repoOwner}) => {
+const RelateItems = ({repoName}) => {
   const classes = useStyles();
   /**
-   * execute query to get issues
+   * execute query to get topicts related 
    */
+
   const {data, loading, error} = useQuery(
-    GET_ISSUES,
+    SEARCH_QUERY,
     {
       variables: {
-        name: repoName,
-        owner: repoOwner
+        search_term: repoName
       }
     }
   );
+
 
   if (loading) {
     return (
@@ -64,24 +58,34 @@ const IssueList = ({repoName, repoOwner}) => {
     )
   }
 
-  if (!data.repository.issues.nodes.length) {
+  if (!data.search.repositoryCount) {
     return (
       <Typography
         variant={'overline'}
         component={'div'}
       >
-        There are no issues!
+        There are no relate topicts!
       </Typography>
     )
   }
 
   return (
     <div className={classes.root}>
-      <Typography variant={'h5'}>Issues: </Typography>
+      <Typography variant={'h5'}>Topics related: </Typography>
       <List>
-        {data.repository.issues.nodes.map(issue => (
-          <ListItem>
-            <ListItemText>{issue.title}</ListItemText>
+        {data.search.edges.map(({
+          node: {
+            name,
+            stargazers: { // required on the document
+              totalCount: totalStarCount
+            }
+          }
+        }, index) => (
+          <ListItem key={`${index}-${name}`}>
+            <ListItemText>
+              {name} &nbsp;&nbsp;
+              <Chip label={totalStarCount} avatar={<StarIcon/>}/>
+            </ListItemText>
           </ListItem>
         ))}
       </List>
@@ -89,4 +93,4 @@ const IssueList = ({repoName, repoOwner}) => {
   );
 };
 
-export default IssueList;
+export default RelateItems;

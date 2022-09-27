@@ -17,7 +17,8 @@ export const SEARCH_QUERY = gql`
                         stargazers {
                             totalCount
                         },
-                        descriptionHTML,
+                        url,
+                        createdAt
                     }
                 }
             }
