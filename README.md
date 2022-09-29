@@ -25,3 +25,11 @@ This project is a simple example to consum graphQL endpoints from github.
 
 In this case use to seart topics, there is a search input on the header on when you can type someting and the app trigger a query to github seacrhing related topicts on the parameter you passed on the search input. Also on each card result you can click and it show related topics about that result.
 
+## Areas to improve
+  
+  -  Right now when you click on some card result, it expand and show a simple list with related topics, we can improve this implementing routing to redirect to new screen and present the information on better formant and more friendly for the user
+
+ - Other point can be paginate the results and implement infinite scroll to preserve good performance on the app
+
+ - Redux implementation, this can be used if the app use routing, if the app change of pages and return to main save the last query or last data pulled from api
+  
