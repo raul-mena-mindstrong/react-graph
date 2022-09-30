@@ -32,7 +32,8 @@ const RelateItems = ({repoName}) => {
     SEARCH_QUERY,
     {
       variables: {
-        search_term: repoName
+        search_term: repoName,
+        limit: 25
       }
     }
   );

@@ -38,7 +38,8 @@ const List = ({searchTerm}) => {
     SEARCH_QUERY,
     {
       variables: {
-        search_term: debouncedSearchTerm
+        name: debouncedSearchTerm,
+        limit: 20
       }
     }
   );

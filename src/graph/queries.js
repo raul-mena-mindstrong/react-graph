@@ -4,8 +4,8 @@ import gql from 'graphql-tag';
  * simple query definitions
  */
 export const SEARCH_QUERY = gql`
-    query($search_term: String!) {
-        search(query: $search_term, type: REPOSITORY, first: 20) {
+    query($name: String!, $limit: Int!) {
+        search(query: $name, type: REPOSITORY, first: $limit) {
             repositoryCount,
             edges {
                 node {
