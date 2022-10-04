@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { useDebounce } from 'use-debounce';
 import { SEARCH_QUERY } from '../graph/queries';
-import Repository from './Item';
+import Item from './Item';
 
 const useStyles = makeStyles({
   note: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 });
 
-const List = ({searchTerm}) => {
+const List = ({searchTerm, onClick}) => {
   const classes = useStyles();
   /**
    * define debounce to avout a lot request to api
@@ -39,7 +39,7 @@ const List = ({searchTerm}) => {
     {
       variables: {
         name: debouncedSearchTerm,
-        limit: 20
+        limit: 10
       }
     }
   );
@@ -69,7 +69,7 @@ const List = ({searchTerm}) => {
   /**
    * result nor found case
    */
-  if (!data.search.repositoryCount) {
+  if (!data?.topic?.relatedTopics) {
     return (
       <Typography
         variant={'overline'}
@@ -80,13 +80,13 @@ const List = ({searchTerm}) => {
       </Typography>
     )
   }
-
   return (
     <div className={classes.container}>
-      {data.search.edges.map((repo, i) => (
-        <Repository
+      {data.topic.relatedTopics.map((repo, i) => (
+        <Item
           repo={repo}
           key={i}
+          onClick={onClick}
         />
       ))}
     </div>

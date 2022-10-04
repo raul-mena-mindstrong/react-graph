@@ -4,21 +4,16 @@ import {
   makeStyles
 } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import RelateItems from './RelateItems';
 
 const useStyles = makeStyles({
   root: {
     margin: '1rem',
-    width: '300px'
+    width: '300px',
+    cursor: 'pointer'
   },
   selected: {
     width: '100% !important'
@@ -37,68 +32,33 @@ const useStyles = makeStyles({
   }
 });
 
-const Item = ({repo}) => {
+const Item = ({repo, onClick}) => {
   /**
    * get information form graph endpoint
    */
   const {
-    node: {
-      name,
-      url,
-      createdAt,
-      owner: {
-        login
-      },
-      stargazers: { // required on the document
-        totalCount: totalStarCount
-      }
+    name,
+    stargazers: { // required on the document
+      totalCount: totalStarCount
     }
   } = repo;
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  /**
-   * show or hide issues
-   */
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   return (
-    <Card className={`${classes.root} ${expanded ? classes.selected : ''}`}>
+    <Card className={`${classes.root}`} onClick={() => onClick(name)}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {name[0]?.toUpperCase()}
           </Avatar>
         }
         action={
           <Chip label={totalStarCount} avatar={<StarIcon/>} className={classes.chip}/>
         }
         title={name}
-        subheader={login}
       />
       <CardContent>
-        {url}<br /><br />
-        {new Date(createdAt).toDateString()}
       </CardContent>
-      <CardActions>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <RelateItems repoName={name} />
-        </CardContent>
-      </Collapse>
     </Card>
   )
 };

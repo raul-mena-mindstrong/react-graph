@@ -5,12 +5,13 @@ import List from "./components/List";
 import Header from './components/Header';
 
 const App = () => {
+  // Topic to searh
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
     <ApolloProvider client={client}>
       <Header value={searchTerm} onChange={setSearchTerm} />
-      <List searchTerm={searchTerm}/>
+      <List searchTerm={searchTerm} onClick={setSearchTerm} />
     </ApolloProvider>
   );
 };

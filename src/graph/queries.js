@@ -5,21 +5,13 @@ import gql from 'graphql-tag';
  */
 export const SEARCH_QUERY = gql`
     query($name: String!, $limit: Int!) {
-        search(query: $name, type: REPOSITORY, first: $limit) {
-            repositoryCount,
-            edges {
-                node {
-                    ... on Repository {
-                        name,
-                        owner {
-                          login  
-                        },
-                        stargazers {
-                            totalCount
-                        },
-                        url,
-                        createdAt
-                    }
+        topic(name: $name) {
+            name
+            relatedTopics(first: $limit) {
+                id
+                name
+                stargazers {
+                    totalCount
                 }
             }
         }
