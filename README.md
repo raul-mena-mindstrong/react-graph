@@ -23,7 +23,7 @@ The project is builded on ReactJS using apollo and graphQL libraries to make the
 
 This project is a simple example to consum graphQL endpoints from github.
 
-In this case use to seart topics, there is a search input on the header on when you can type someting and the app trigger a query to github seacrhing related topicts on the parameter you passed on the search input. Also on each card result you can click and it show related topics about that result.
+In this case use to seart topics, there is a search input on the header on when you can type someting and the app trigger a query to github seacrhing related topicts on the parameter you passed on the search input. Also on each card result you can click and it will serach related tipic about the clicked card  
 
 ## Areas to improve
   
@@ -32,4 +32,6 @@ In this case use to seart topics, there is a search input on the header on when 
  - Other point can be paginate the results and implement infinite scroll to preserve good performance on the app
 
  - Redux implementation, this can be used if the app use routing, if the app change of pages and return to main save the last query or last data pulled from api
+
+ - e2e testing, can be Cypress or something similar to test the functionality
   
